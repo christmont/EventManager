@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-@include('layout.head');
+@include('layout2.head');
 <body class="nav-md">
     <div class="container body">
       <div class="main_container">
@@ -19,7 +19,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2>{{ ucfirst(Auth::user()->firstname). ' ' . ucfirst(Auth::user()->lastname)}}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -78,7 +78,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">John Doe
+                    <img src="images/img.jpg" alt="">{{ ucfirst(Auth::user()->firstname). ' ' . ucfirst(Auth::user()->lastname)}}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -86,7 +86,7 @@
                     <li>
                       
                     </li>
-                    
+                  
                     <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
@@ -99,9 +99,11 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
-          @yield('content');
 
+        <div class="right_col" role="main">
+       @include('layout2.messages')
+          @yield('content')
+  
         </div>
         <!-- /page content -->
 
@@ -114,7 +116,7 @@
     
   
   </body>
-@include('layout.javascript');
+@include('layout2.javascript');
 
   
 

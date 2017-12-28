@@ -6,10 +6,52 @@ use Illuminate\Http\Request;
 use App\Partner;
 use Image;
 use File;
+use App\Access;
+use Auth;
 
 
 class PartnerController extends Controller
 {
+    public function __construct(){
+        $access = Access::where('job_id', Auth::user()->job_id)->where('module', 'Sponsor Module')->first();
+        if($access->read == 0){
+            return redirect()->back()->with('error', 'Please contact system administrator for read permision')
+        }else if($access->write == 1){
+            return view('sponsor_register');
+        }
+        $this->middleware('auth');
+    }
+
+    public function api(){
+        $data = Partner::all();
+        $access = Access::where('job_id', Auth::user()->job_id)->where('module', 'Partner Module')->first();
+        return Datatables::of($data)
+        ->editColumn('imgpath', function($data){
+            return '
+                  <img src="'. asset('img/partner/' . $data->imgpath) .'" style="height: 150px; width: 100%;">
+            ';
+        })
+        ->addColumn('action', function($data) use ($access){
+            $buttons = '';
+            if($access->modify == 1){
+                $buttons .= '
+                    <a href="/partner/edit/'+ $data->id +'" class="btn btn-primary">Edit</a>
+                    ';
+            }else if($access->delete == 1){
+                $buttons .= '
+                <form action="/partner/delete/' . $data->id . '" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="'. csrf_token() . '">
+                    <button type="submit" class="btn btn-danger"></button>
+                </form>
+                ';
+            }
+            return $buttons;
+        })
+        ->make(true);
+    }
+
+
     public function index(){
 
     }
@@ -32,7 +74,7 @@ class PartnerController extends Controller
     	    $partner->imgpath = $filename;
     	    $partner->save();
 
-    	    return redirect()->back();
+    	    return redirect()->back()->with('success','Register successful!');
     	}
         
     	return redirect()->back();

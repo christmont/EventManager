@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-@extends('layout.app')
+@extends('layout2.app')
 <html>
   
-       
-    
-        @section('content')
         
+     
+ 
+
+        @section('content')
+           
          @endsection
                 
              

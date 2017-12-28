@@ -32,4 +32,9 @@
     <link href="{{ asset('bg/vendors/switchery/dist/switchery.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bg/vendors/starrr/dist/starrr.css') }}" rel="stylesheet">
     <link href="{{ asset('bg/vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+    <link href="{{ asset('bg/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bg/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bg/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bg/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bg/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
   </head>

@@ -7,9 +7,50 @@ use App\Subevent;
 use App\Event;
 use File;
 use Image;
+use App\Access;
+use Auth;
 
 class SubeventController extends Controller
 {
+    public function __construct(){
+        $access = Access::where('job_id', Auth::user()->job_id)->where('module', 'Subevent Module')->first();
+        if($access->read == 0){
+            return redirect()->back()->with('error', 'Please contact system administrator for read permision');
+        }
+        else if($access->write == 1){
+            return view('subevent_register');
+        }
+        $this->middleware('auth');
+    }
+
+    public function api(){
+        $data = Subevent::all();
+        $access = Access::where('job_id', Auth::user()->job_id)->where('module', 'Subevent Module')->first();
+        return Datatables::of($data)
+        ->editColumn('imgpath', function($data){
+            return '
+                  <img src="'. asset('img/subevent/' . $data->imgpath) .'" style="height: 150px; width: 100%;">
+            ';
+        })
+        ->addColumn('action', function($data) use ($access){
+            $buttons = '';
+            if($access->modify == 1){
+                $buttons .= '
+                    <a href="/subevent/edit/'+ $data->id +'" class="btn btn-primary">Edit</a>
+                    ';
+            }else if($access->delete == 1){
+                $buttons .= '
+                <form action="/subevent/delete/' . $data->id . '" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="'. csrf_token() . '">
+                    <button type="submit" class="btn btn-danger"></button>
+                </form>
+                ';
+            }
+            return $buttons;
+        })
+        ->make(true);
+    }
     public function index(){
 
     }
@@ -24,7 +65,7 @@ class SubeventController extends Controller
     	{
     	    $img = $request->file('file');
     	    $filename = time() . '_' . $img->getClientOriginalName();
-    	    Image::make($img)->save( public_path('/img 3/subevent/' . $filename) );
+    	    Image::make($img)->save( public_path('/img/subevent/' . $filename) );
 
     	    $subevent = new Subevent;
     	    $subevent->name = $request->name;
@@ -68,7 +109,7 @@ class SubeventController extends Controller
 
     	    $subevent->save();
 
-    	    return redirect()->back();
+    	    return redirect()->back()->with('success','Register successful!');
     	}
 
     	return redirect()->back();

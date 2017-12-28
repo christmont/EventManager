@@ -17,8 +17,6 @@ class CreateJobsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
-            $table->integer('access_id')->unsigned();
-            $table->foreign('access_id')->references('id')->on('accesses')->onDelete('cascade');
         });
     }
 

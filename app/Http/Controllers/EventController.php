@@ -6,9 +6,52 @@ use Illuminate\Http\Request;
 use App\Event;
 use File;
 use Image;
+use App\Access;
+use Auth;
+
+
 
 class EventController extends Controller
 {
+   // public function __construct(){
+        //$access = Access::where('job_id', Auth::user()->job_id)->where('module', 'Event Module')->first();
+       // if($access->read == 0){
+       //     return redirect()->back()->with('error', 'Please contact system administrator for read permision');
+      //  }else if($access->write == 1){
+      //      return view('event_register');
+      //  }
+     //   $this->middleware('auth');
+   // }
+
+    public function api(){
+        $data = Event::all();
+        $access = Access::where('job_id', Auth::user()->job_id)->where('module', 'Partner Module')->first();
+        return Datatables::of($data)
+        ->editColumn('imgpath', function($data){
+            return '
+                  <img src="'. asset('img/event/' . $data->imgpath) .'" style="height: 150px; width: 100%;">
+            ';
+        })
+        ->addColumn('action', function($data) use ($access){
+            $buttons = '';
+            if($access->modify == 1){
+                $buttons .= '
+                    <a href="/event/edit/'+ $data->id +'" class="btn btn-primary">Edit</a>
+                    ';
+            }else if($access->delete == 1){
+                $buttons .= '
+                <form action="/event/delete/' . $data->id . '" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_token" value="'. csrf_token() . '">
+                    <button type="submit" class="btn btn-danger"></button>
+                </form>
+                ';
+            }
+            return $buttons;
+        })
+        ->make(true);
+    }
+
     public function index(){
 
     }
@@ -22,7 +65,7 @@ class EventController extends Controller
         {
             $img = $request->file('file');
             $filename = time() . '_' . $img->getClientOriginalName();
-            Image::make($img)->save( public_path('/img 2/event/' . $filename) );
+            Image::make($img)->save( public_path('/img/event/' . $filename) );
 
             $event = new Event;
             $event->name = $request->name;
@@ -63,7 +106,7 @@ class EventController extends Controller
 
             $event->save();
 
-            return redirect()->back();
+            return redirect()->back()->with('success','Register successful!');
         }
 
         return redirect()->back();

@@ -10,9 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::group(['middlewareGroups' => ['web']], function () {
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome')->with('success','sdasdwa');
 });
 
 Route::get('/guest', 'GuestController@index');
@@ -49,3 +49,7 @@ Route::post('/job/register', 'JobController@register');
 Route::get('/job/edit/{id}', 'JobController@showupdate');
 Route::put('/job/edit/{id}', 'JobController@supdate');
 Route::delete('/job/delete/{id}', 'JobController@delete');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+});

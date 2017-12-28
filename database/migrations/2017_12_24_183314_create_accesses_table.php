@@ -20,6 +20,9 @@ class CreateAccessesTable extends Migration
             $table->boolean('read');
             $table->boolean('write');
             $table->boolean('modify');
+            $table->boolean('delete');
+            $table->integer('job_id')->unsigned();
+            $table->foreign('job_id')->references('id')->on('jobs')->onDelete('cascade');
         });
     }
 
