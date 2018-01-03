@@ -12,16 +12,16 @@ use Auth;
 
 class SubeventController extends Controller
 {
-    public function __construct(){
-        $access = Access::where('job_id', Auth::user()->job_id)->where('module', 'Subevent Module')->first();
-        if($access->read == 0){
-            return redirect()->back()->with('error', 'Please contact system administrator for read permision');
-        }
-        else if($access->write == 1){
-            return view('subevent_register');
-        }
-        $this->middleware('auth');
-    }
+   // public function __construct(){
+    //    $access = Access::where('job_id', Auth::user()->job_id)->where('module', 'Subevent Module')->first();
+    //    if($access->read == 0){
+     //       return redirect()->back()->with('error', 'Please contact system administrator for read permision');
+     //   }
+     //   else if($access->write == 1){
+     //       return view('subevent_register');
+    //    }
+     //   $this->middleware('auth');
+    //}
 
     public function api(){
         $data = Subevent::all();

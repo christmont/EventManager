@@ -20,6 +20,7 @@
               <div class="profile_info">
                 <span>Welcome,</span>
                 <h2>{{ ucfirst(Auth::user()->firstname). ' ' . ucfirst(Auth::user()->lastname)}}</h2>
+
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -31,7 +32,7 @@
               <div class="menu_section">
               
                 <ul class="nav side-menu">
-                  <li><a href="/"><i class="fa fa-home"> </i> Home</a>
+                  <li><a href="/dashboard"><i class="fa fa-home"> </i> Home</a>
                  
                   </li>
                   <li><a  href="/event/register"><i class="fa fa-calendar" aria-hidden="true" ></i> Events </a>
@@ -78,7 +79,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">{{ ucfirst(Auth::user()->firstname). ' ' . ucfirst(Auth::user()->lastname)}}
+                    <img src="images/" alt="">{{ ucfirst(Auth::user()->firstname). ' ' . ucfirst(Auth::user()->lastname)}}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -87,7 +88,7 @@
                       
                     </li>
                   
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="{{Auth::logout()}}"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 

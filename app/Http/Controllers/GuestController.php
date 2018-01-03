@@ -9,15 +9,15 @@ use Auth;
 
 class GuestController extends Controller
 {
-    public function __construct(){
-        $access = Access::where('job_id', Auth::user()->job_id)->where('module', 'Guest Module')->first();
-        if($access->read == 0){
-            return redirect()->back()->with('error', 'Please contact system administrator for read permision');
-        }else if($access->write == 1){
-            return view('guest_register');
-        }
-        $this->middleware('auth');
-    }
+    //public function __construct(){
+    //    $access = Access::where('job_id', Auth::user()->job_id)->where('module', 'Guest Module')->first();
+     //   if($access->read == 0){
+    //        return redirect()->back()->with('error', 'Please contact system administrator for read permision');
+     //   }else if($access->write == 1){
+     //       return view('guest_register');
+     //   }
+     //   $this->middleware('auth');
+  //  }
 
     public function api(){
         $data = Guest::all();

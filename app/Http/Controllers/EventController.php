@@ -8,19 +8,20 @@ use File;
 use Image;
 use App\Access;
 use Auth;
+use App\User;
 
 
 
 class EventController extends Controller
 {
-   // public function __construct(){
-        //$access = Access::where('job_id', Auth::user()->job_id)->where('module', 'Event Module')->first();
-       // if($access->read == 0){
-       //     return redirect()->back()->with('error', 'Please contact system administrator for read permision');
-      //  }else if($access->write == 1){
-      //      return view('event_register');
+   //public function __construct(){
+   //     $access = Access::where('job_id', Auth::user()->job_id)->where('module', 'Event Module')->first();
+    //    if($access->read == 0){
+    //        return redirect()->back()->with('error', 'Please contact system administrator for read permision');
+     //   }else if($access->write == 1){
+     //       return view('event_register');
       //  }
-     //   $this->middleware('auth');
+      //  $this->middleware('auth');
    // }
 
     public function api(){

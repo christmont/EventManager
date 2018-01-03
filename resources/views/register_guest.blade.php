@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-@extends('layout.app')
+@extends('layout2.app')
 <html>
   
        

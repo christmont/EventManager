@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <title>EMS </title>
 
     <!-- Bootstrap -->
    <link  href="{{ asset('bg/vendors/bootstrap/dist/css/bootstrap.css') }}" rel="stylesheet">
@@ -35,7 +35,7 @@
               <h1>Login Form</h1>
                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
               <div>
-                <input type="text" class="form-control" name = "email" placeholder="Email" required="" />
+                <input type="text" class="form-control" name ="email" placeholder="Email" required="" />
                  @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
